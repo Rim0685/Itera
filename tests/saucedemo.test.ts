@@ -10,4 +10,10 @@ test('Gå inn på demo', async ({ page }) => {
 
     await page.locator('#login-button').click();
     await expect (page).tohaveURL('https://www.saucedemo.com/inventory.html');
+
+    await page.locator('name="add-to-cart-sauce-labs-backpack"').click();
+
+    await page.getByTestId('remove-sauce-labs-backpack').click();
+
+    await expect(page.locator('name="add-to-cart-sauce-labs-backpack"')).toBeVisible();
 });
