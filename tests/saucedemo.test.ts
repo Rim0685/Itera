@@ -1,4 +1,24 @@
 import { test, expect } from '@playwright/test';
+test.beforeEach(async ({ page }) => {
+   
+    await page.goto('https://www.saucedemo.com/');
+
+    await expect (page).tohaveURL('https://www.saucedemo.com/');
+
+    await page.getByPlaceholder('Username').fill('standard_user');
+
+    await page.getByTestId('password').fill('password');
+
+    await page.locator('#login-button').click();
+    await expect (page).tohaveURL('https://www.saucedemo.com/inventory.html');
+
+    await page.locator('[name="add-to-cart-sauce-labs-backpack"]').click();
+
+    await page.getByTestId('remove-sauce-labs-backpack').click();
+
+    await expect(page.locator('[name="add-to-cart-sauce-labs-backpack"]')).toBeVisible();
+});
+
 test('Gå inn på demo', async ({ page }) => {
     await page.goto('https://www.saucedemo.com/');
 
@@ -11,9 +31,9 @@ test('Gå inn på demo', async ({ page }) => {
     await page.locator('#login-button').click();
     await expect (page).tohaveURL('https://www.saucedemo.com/inventory.html');
 
-    await page.locator('name="add-to-cart-sauce-labs-backpack"').click();
+    await page.locator('[name="add-to-cart-sauce-labs-backpack"]').click();
 
     await page.getByTestId('remove-sauce-labs-backpack').click();
 
-    await expect(page.locator('name="add-to-cart-sauce-labs-backpack"')).toBeVisible();
+    await expect(page.locator('[name="add-to-cart-sauce-labs-backpack"]')).toBeVisible();
 });
